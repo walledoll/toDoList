@@ -1,11 +1,16 @@
-import './App.css'
+
+
 
 function App() {
 
   return (
     <>
+      <div className="h-[5em] flex justify-center items-center">
+        <h1 >Task Manager</h1>
+      </div>
     </>
   )
 }
 
 export default App
+
