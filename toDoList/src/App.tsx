@@ -1,6 +1,3 @@
-
-
-
 function App() {
 
   return (
@@ -8,6 +5,8 @@ function App() {
       <div className="h-[5em] flex justify-center items-center">
         <h1 >Task Manager</h1>
       </div>
+      <hr className="place-self-center w-[20em]"/>
+      
     </>
   )
 }
