@@ -1,11 +1,30 @@
-import React from 'react'
+import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import type { Task } from '@/types/Task'
+import { Card, CardContent, CardDescription, CardTitle } from './ui/card'
 
-export default function TaskItem() {
+export default function TaskItem(task: Task) {
+  const renderCategory = () =>{
+    switch(task.category){
+        case "Test": 
+            return <Badge className='bg'/>
+    }
+  }
   return (
-    <div>
-        <h2></h2>
-        <p></p>
+    <Card>
+        <CardTitle>
+            {task.name}
+        </CardTitle>
+        <CardDescription>
+            <p>{task.content}</p>
+        </CardDescription>
+        <CardContent className='flex '>
+            <Badge variant="secondary">{task.category}</Badge>
+            <Badge>{task.status}</Badge>
+            <Badge>{task.priority}</Badge>
+        </CardContent>
         
-    </div>
+        <Button>Редактировать</Button>
+    </Card>
   )
 }
