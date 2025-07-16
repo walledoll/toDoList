@@ -1,4 +1,4 @@
-enum Category{
+export enum Category{
     Bug = "Bug",
     Feature = "Feature",
     Documentation = "Documentation",
@@ -6,19 +6,20 @@ enum Category{
     Test = "Test"
 }; 
 
-enum Status{
+export enum Status{
     ToDo = "To Do",
     InProgress = "In Progress",
     Done = "Done"
 };
 
-enum Priority{
+export enum Priority{
     Low = "Low",
     Medium = "Medium",
     High = "High"
 };
 
-export type Task = {
+export interface Task{
+    id: number;
     name: string;
     content: string;
     category: Category;
