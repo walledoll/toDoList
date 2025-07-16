@@ -7,7 +7,7 @@ import type { Task } from '@/entities/Task';
 export default function Details() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const taskId = Number(id); // т.к. у тебя id типа number
+  const taskId = Number(id);
 
   const { tasks, updateTask } = useTaskContext();
   const task = tasks.find((t) => t.id === taskId);
@@ -23,8 +23,8 @@ export default function Details() {
 
   const handleSubmit = () => {
     if (currentTask) {
-      updateTask(currentTask); // Обновляем задачу в контексте
-      navigate('/'); // Возвращаемся обратно
+      updateTask(currentTask);
+      navigate('/');
     }
   };
 
@@ -41,7 +41,7 @@ export default function Details() {
       <h1 className="text-2xl font-bold mb-4">Редактировать задачу</h1>
       <TaskDetails
         {...currentTask}
-        onChange={handleChange} // добавь onChange в props TaskDetails
+        onChange={handleChange}
         onSubmit={handleSubmit}
         onCancel={handleCancel}
       />
