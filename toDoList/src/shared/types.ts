@@ -17,12 +17,3 @@ export enum Priority{
     Medium = "Medium",
     High = "High"
 };
-
-export interface Task{
-    id: number;
-    name: string;
-    content: string;
-    category: Category;
-    status: Status;
-    priority: Priority;
-}
