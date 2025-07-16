@@ -33,12 +33,12 @@ export default function Details() {
   };
 
   if (!currentTask) {
-    return <div>Задача не найдена</div>;
+    return <div>Task is not found</div>;
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Редактировать задачу</h1>
+    <div>
+      <h1 className="flex justify-center items-center my-[2em] text-[1.1em]">Details</h1>
       <TaskDetails
         {...currentTask}
         onChange={handleChange}
