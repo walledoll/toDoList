@@ -1,13 +1,19 @@
-function App() {
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./components/pages/Home"
+import Details from "./components/pages/Details"
+import { TaskProvider } from "./components/providers/TaskProvider"
 
+function App() {
+  
   return (
-    <>
-      <div className="h-[5em] flex justify-center items-center">
-        <h1 >Task Manager</h1>
-      </div>
-      <hr className="place-self-center w-[20em]"/>
-      
-    </>
+    <TaskProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/task/:id" element={<Details/>} />
+        </Routes>
+      </BrowserRouter>
+    </TaskProvider>
   )
 }
 
