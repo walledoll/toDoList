@@ -10,8 +10,10 @@ export default function Details() {
   const { id } = useParams();
   const taskId = Number(id);
   const tasks = useTaskStore((state) => state.tasks);
-  const task  = (tasks.find((task) => task.id === taskId));
   const updateTask = useTaskStore((state) => state.updateTask);
+  const deleteTask = useTaskStore((state) => state.deleteTask);
+  const task  = (tasks.find((task) => task.id === taskId));
+
   const [currentTask, setCurrentTask] = useState<Task | null>(task || null);
 
   const handleCancel = () =>{
@@ -32,15 +34,22 @@ export default function Details() {
     }
   }
 
-    if (!currentTask) {
+  const handleDelete =() =>{
+    if(currentTask){
+      deleteTask(taskId);
+      navigate('/');
+    }
+  }
+
+  if (!currentTask || !taskId) {
     return <div>Task not found</div>;
   }
 
   return (
-
     <div>
       <h1 className="flex justify-center items-center my-[2em] text-[1.1em]">Details</h1>
-      <TaskDetails {...currentTask} onCancel={handleCancel} onChange={handleChange} onSubmit={handleSubmit}/>
+      <TaskDetails {...currentTask} onCancel={handleCancel} onChange={handleChange} onSubmit={handleSubmit} onDelete={handleDelete}/>
     </div>
   );
 }
+

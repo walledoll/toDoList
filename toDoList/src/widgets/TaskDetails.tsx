@@ -5,15 +5,18 @@ import { Label } from '../shared/ui/label';
 import { Button } from '../shared/ui/button';
 import type { ChangeEvent } from 'react';
 import type { Task } from '@/entities/task/model/Task';
+import { Trash } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Category, Priority, Status } from '@/shared/types';
 
 interface TaskDetailsProps extends Task {
     onChange: (updatedField: Partial<Task>) => void;
     onSubmit: () => void;
     onCancel: () => void;
+    onDelete: () => void;
 }
 
-export default function TaskDetails({ name, content, category, status, priority, onChange, onSubmit, onCancel }: TaskDetailsProps) {
+export default function TaskDetails({ name, content, category, status, priority, onChange, onSubmit, onCancel, onDelete }: TaskDetailsProps) {
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name: filedName, value } = e.target;
         onChange({ [filedName]: value })
@@ -75,7 +78,11 @@ export default function TaskDetails({ name, content, category, status, priority,
                         <Label>Select a priority</Label>
                         <Select onValueChange={(value) => onChange({ priority: value as Priority })} defaultValue={priority}>
                             <SelectTrigger className="w-[15em]">
-                                <SelectValue />
+                                <div className='flex justify-center items-center bg-[#777] text-white gap-1 rounded-[5px]'>
+                                      <SelectValue />
+                                      <button><X className='text-white'/></button>
+                                </div>
+                              
                             </SelectTrigger>
 
                             <SelectContent >
@@ -93,7 +100,8 @@ export default function TaskDetails({ name, content, category, status, priority,
 
                 </div>
                 <div className='flex justify-between mx-3'>
-                    <Button className='dark' onClick={onCancel}>Cancel</Button>
+                    <Button variant='destructive' onClick={onDelete}><Trash/> Delete</Button>
+                    <Button className='bg-[#777] text' onClick={onCancel}>Cancel</Button>
                     <Button onClick={onSubmit}>Save</Button>
                 </div>
             </form>

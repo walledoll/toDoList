@@ -1,17 +1,16 @@
 import { Badge } from '../../../shared/ui/badge'
 import { Button } from '../../../shared/ui/button'
 import { Task } from '@/entities/task/model/Task'
-import { FaFire } from "react-icons/fa";
-import { IoIosDoneAll } from "react-icons/io";
-import { RiProgress1Line } from "react-icons/ri";
-import { MdRemoveDone } from "react-icons/md";
-import { IoMdDocument } from "react-icons/io";
-import { FaFeatherAlt } from "react-icons/fa";
-import { FaBug } from "react-icons/fa";
-import { FaFlagCheckered } from "react-icons/fa";
-import { GrTest } from "react-icons/gr";
 import { Card, CardContent, CardDescription, CardTitle } from '../../../shared/ui/card'
 import { useNavigate } from 'react-router-dom';
+import { SquareCheck } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
+import { SquareX } from 'lucide-react';
+import { Bug } from 'lucide-react';
+import { Feather } from 'lucide-react';
+import { StickyNote } from 'lucide-react';
+import { CodeXml } from 'lucide-react';
+import { FlaskConical } from 'lucide-react';
 
 export default function TaskItem(task: Task) {
   const navigate = useNavigate();
@@ -22,37 +21,37 @@ export default function TaskItem(task: Task) {
   const renderCategory = () => {
     switch (task.category) {
       case "Bug":
-        return <Badge><FaBug />Bug</Badge>
+        return <Badge><Bug />Bug</Badge>
       case "Feature":
-        return <Badge><FaFeatherAlt />Feature</Badge>
+        return <Badge><Feather />Feature</Badge>
       case "Documentation":
-        return <Badge><IoMdDocument />Documentation</Badge>
+        return <Badge><StickyNote />Documentation</Badge>
       case "Refactor":
-        return <Badge><FaFlagCheckered />Refactor</Badge>
+        return <Badge><CodeXml />Refactor</Badge>
       case "Test":
-        return <Badge><GrTest />Test</Badge>
+        return <Badge><FlaskConical />Test</Badge>
     }
   }
 
   const renderStatus = () => {
     switch (task.status) {
       case "Done":
-        return <Badge ><IoIosDoneAll />Done</Badge>
+        return <Badge ><SquareCheck />Done</Badge>
       case "In Progress":
-        return <Badge ><RiProgress1Line />In Progress</Badge>
+        return <Badge ><RefreshCw />In Progress</Badge>
       case "To Do":
-        return <Badge><MdRemoveDone />To Do</Badge>
+        return <Badge><SquareX />To Do</Badge>
     }
   }
 
   const renderPriority = () => {
     switch (task.priority) {
       case "High":
-        return <Badge className='bg-red-500'><FaFire />High</Badge>
+        return <Badge className='bg-red-500'><div>!!!</div>High</Badge>
       case "Medium":
-        return <Badge className='bg-yellow-500'>Medium</Badge>
+        return <Badge className='bg-yellow-500'><div>!!</div>Medium</Badge>
       case "Low":
-        return <Badge className='bg-green-500'>Low</Badge>
+        return <Badge className='bg-green-500'><div>!</div>Low</Badge>
     }
   }
 
