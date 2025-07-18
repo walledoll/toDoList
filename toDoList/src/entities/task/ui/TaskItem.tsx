@@ -3,20 +3,28 @@ import { Button } from '../../../shared/ui/button'
 import { Task } from '@/entities/task/model/Task'
 import { Card, CardContent, CardDescription, CardTitle } from '../../../shared/ui/card'
 import { useNavigate } from 'react-router-dom';
-import { SquareCheck } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { RefreshCw } from 'lucide-react';
-import { SquareX } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Bug } from 'lucide-react';
 import { Feather } from 'lucide-react';
 import { StickyNote } from 'lucide-react';
 import { CodeXml } from 'lucide-react';
 import { FlaskConical } from 'lucide-react';
+import { Trash } from 'lucide-react';
+import { useTaskStore } from '@/app/store/taskStore';
 
 export default function TaskItem(task: Task) {
   const navigate = useNavigate();
+  const deleteTask = useTaskStore((state) => state.deleteTask);
+  const {id} = task;
 
   const handleClick = () => {
     navigate(`/task/${task.id}`);
+  }
+
+  const handleDeleteClick = () => {
+    deleteTask(id);
   }
   const renderCategory = () => {
     switch (task.category) {
@@ -36,11 +44,11 @@ export default function TaskItem(task: Task) {
   const renderStatus = () => {
     switch (task.status) {
       case "Done":
-        return <Badge ><SquareCheck />Done</Badge>
+        return <Badge ><Check />Done</Badge>
       case "In Progress":
         return <Badge ><RefreshCw />In Progress</Badge>
       case "To Do":
-        return <Badge><SquareX />To Do</Badge>
+        return <Badge><X />To Do</Badge>
     }
   }
 
@@ -57,8 +65,9 @@ export default function TaskItem(task: Task) {
 
   return (
     <Card className='px-3'>
-      <CardTitle>
+      <CardTitle className='flex justify-between items-center'>
         {task.name}
+        <Button variant='destructive' onClick={handleDeleteClick}><Trash/></Button>
       </CardTitle>
       <CardDescription>
         <p>{task.content}</p>
