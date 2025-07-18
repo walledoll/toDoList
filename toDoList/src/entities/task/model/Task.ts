@@ -1,7 +1,7 @@
-import type { Category, Priority, Status } from "@/shared/types";
+import { Category, Priority, Status } from "@/shared/types";
 
 
-export interface Task{
+export type Task = {
     id: number;
     name: string;
     content: string;

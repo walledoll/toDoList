@@ -1,6 +1,6 @@
 import { Badge } from '../../../shared/ui/badge'
 import { Button } from '../../../shared/ui/button'
-import { type Task } from '@/entities/task/model/Task'
+import { Task } from '@/entities/task/model/Task'
 import { FaFire } from "react-icons/fa";
 import { IoIosDoneAll } from "react-icons/io";
 import { RiProgress1Line } from "react-icons/ri";
