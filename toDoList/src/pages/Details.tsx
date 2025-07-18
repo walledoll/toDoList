@@ -1,7 +1,7 @@
 import { useTaskStore } from "@/app/store/taskStore";
 import { Task } from "@/entities/task/model/Task";
 import TaskDetails from "@/widgets/TaskDetails";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -35,7 +35,7 @@ export default function Details() {
     if (!currentTask) {
     return <div>Task not found</div>;
   }
-  
+
   return (
 
     <div>
