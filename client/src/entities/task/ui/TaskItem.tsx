@@ -13,6 +13,7 @@ import { CodeXml } from 'lucide-react';
 import { FlaskConical } from 'lucide-react';
 import { Trash } from 'lucide-react';
 import { useTaskStore } from '@/app/store/taskStore';
+import { Category, Priority, Status } from '@/shared/types';
 
 export default function TaskItem(task: Task) {
   const navigate = useNavigate();
@@ -28,38 +29,38 @@ export default function TaskItem(task: Task) {
   }
   const renderCategory = () => {
     switch (task.category) {
-      case "Bug":
-        return <Badge><Bug />Bug</Badge>
-      case "Feature":
-        return <Badge><Feather />Feature</Badge>
-      case "Documentation":
-        return <Badge><StickyNote />Documentation</Badge>
-      case "Refactor":
-        return <Badge><CodeXml />Refactor</Badge>
-      case "Test":
-        return <Badge><FlaskConical />Test</Badge>
+      case Category.Bug:
+        return <Badge><Bug />{Category.Bug}</Badge>
+      case Category.Feature:
+        return <Badge><Feather />{Category.Feature}</Badge>
+      case Category.Documentation:
+        return <Badge><StickyNote />{Category.Documentation}</Badge>
+      case Category.Refactor:
+        return <Badge><CodeXml />{Category.Refactor}</Badge>
+      case Category.Test:
+        return <Badge><FlaskConical />{Category.Test}</Badge>
     }
   }
 
   const renderStatus = () => {
     switch (task.status) {
-      case "Done":
-        return <Badge ><Check />Done</Badge>
-      case "In Progress":
-        return <Badge ><RefreshCw />In Progress</Badge>
-      case "To Do":
-        return <Badge><X />To Do</Badge>
+      case Status.Done:
+        return <Badge ><Check />{Status.Done}</Badge>
+      case Status.InProgress:
+        return <Badge ><RefreshCw />{Status.InProgress}</Badge>
+      case Status.ToDo:
+        return <Badge><X />{Status.ToDo}</Badge>
     }
   }
 
   const renderPriority = () => {
     switch (task.priority) {
-      case "High":
-        return <Badge className='bg-red-500'><div>!!!</div>High</Badge>
-      case "Medium":
-        return <Badge className='bg-yellow-500'><div>!!</div>Medium</Badge>
-      case "Low":
-        return <Badge className='bg-green-500'><div>!</div>Low</Badge>
+      case Priority.High:
+        return <Badge className='bg-red-500'><div>!!!</div>{Priority.High}</Badge>
+      case Priority.Medium:
+        return <Badge className='bg-yellow-500'><div>!!</div>{Priority.Medium}</Badge>
+      case Priority.Low:
+        return <Badge className='bg-green-500'><div>!</div>{Priority.Low}</Badge>
     }
   }
 

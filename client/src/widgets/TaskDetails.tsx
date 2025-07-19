@@ -21,6 +21,13 @@ export default function TaskDetails({ name, content, category, status, priority,
         const { name: filedName, value } = e.target;
         onChange({ [filedName]: value })
     }
+    const renderSelectItem = (item: typeof Category | typeof Status | typeof Priority) => {
+        return Object.values(item).map((cat) => (
+            <SelectItem key={cat} value={cat}>
+            {cat}
+            </SelectItem>
+        ));
+    };
     return (
         <Card className='mx-5'>
             <form className='grid gap-3' onSubmit={(e) => e.preventDefault()}>
@@ -45,11 +52,7 @@ export default function TaskDetails({ name, content, category, status, priority,
                             <SelectContent >
                                 <SelectGroup>
                                     <SelectLabel>Category</SelectLabel>
-                                    {Object.values(Category).map((cat) => (
-                                        <SelectItem key={cat} value={cat}>
-                                            {cat}
-                                        </SelectItem>
-                                    ))}
+                                    {renderSelectItem(Category)}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -64,11 +67,7 @@ export default function TaskDetails({ name, content, category, status, priority,
                             <SelectContent >
                                 <SelectGroup>
                                     <SelectLabel>Status</SelectLabel>
-                                    {Object.values(Status).map((stat) => (
-                                        <SelectItem key={stat} value={stat}>
-                                            {stat}
-                                        </SelectItem>
-                                    ))}
+                                    {renderSelectItem(Status)}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -78,21 +77,13 @@ export default function TaskDetails({ name, content, category, status, priority,
                         <Label>Select a priority</Label>
                         <Select onValueChange={(value) => onChange({ priority: value as Priority })} defaultValue={priority}>
                             <SelectTrigger className="w-[15em]">
-                                <div className='flex justify-center items-center bg-[#777] text-white gap-1 rounded-[5px]'>
-                                      <SelectValue />
-                                      <button><X className='text-white'/></button>
-                                </div>
-                              
+                                <SelectValue />
                             </SelectTrigger>
 
                             <SelectContent >
                                 <SelectGroup>
                                     <SelectLabel>Priority</SelectLabel>
-                                    {Object.values(Priority).map((pr) => (
-                                        <SelectItem key={pr} value={pr}>
-                                            {pr}
-                                        </SelectItem>
-                                    ))}
+                                    {renderSelectItem(Priority)}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>

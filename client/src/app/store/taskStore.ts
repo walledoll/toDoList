@@ -10,6 +10,8 @@ interface TaskStoreProps{
     deleteTask: (id: number) => void;
 }
 
+
+
 export const useTaskStore = create<TaskStoreProps>()(
   persist(
     (set) => ({
