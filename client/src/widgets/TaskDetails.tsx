@@ -6,7 +6,6 @@ import { Button } from '../shared/ui/button';
 import type { ChangeEvent } from 'react';
 import type { Task } from '@/entities/task/model/Task';
 import { Trash } from 'lucide-react';
-import { X } from 'lucide-react';
 import { Category, Priority, Status } from '@/shared/types';
 
 interface TaskDetailsProps extends Task {
