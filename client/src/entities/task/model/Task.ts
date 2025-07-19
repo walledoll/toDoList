@@ -1,5 +1,4 @@
-import { Category, Priority, Status } from "@/shared/types";
-
+import { Category, Priority, Status } from '@/shared/types';
 
 export type Task = {
     id: number;
@@ -8,4 +7,4 @@ export type Task = {
     category: Category;
     status: Status;
     priority: Priority;
-}
+};
