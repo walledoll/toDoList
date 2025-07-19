@@ -27,16 +27,14 @@ export default function NewTask({onChange, onCancel, onSubmit}: NewTaskProps) {
                     <Input name="name" onChange={handleChange} type="text" required/>
                 </div>
                 <div>
-                    <Label aria-required>Content
-                        <Input onChange={handleChange} type="text" name="content" required/>
-                    </Label>
-                    
+                    <Label htmlFor='content'>Content</Label>
+                    <Input onChange={handleChange} type="text" name="content" required/>
                 </div>
             </div>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-5 mx-3'>
                 <div>
                     <Label>Select a category</Label>
-                    <Select onValueChange={(value) => onChange({ category: value as Category })} required>
+                    <Select onValueChange={(value) => onChange({ category: value as Category })}>
                         <SelectTrigger className="w-[15em]">
                             <SelectValue />
                         </SelectTrigger>
