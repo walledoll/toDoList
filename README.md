@@ -9,7 +9,8 @@
 ## Run
 `npm run dev`
 ## Test
-### before testing run back server and be sure that it worksback:  https://todo-backend-7ky2.onrender.com
+### before testing run back server and be sure that it works
+### back:  https://todo-backend-7ky2.onrender.com
 
 ### front: https://todolist-2qqh.onrender.com/
 
