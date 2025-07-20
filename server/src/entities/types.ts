@@ -1,4 +1,4 @@
-export enum Category{
+export const enum Category{
     Bug = "Bug",
     Feature = "Feature",
     Documentation = "Documentation",
@@ -6,14 +6,23 @@ export enum Category{
     Test = "Test"
 }; 
 
-export enum Status{
+export const enum Status{
     ToDo = "To Do",
     InProgress = "In Progress",
     Done = "Done"
 };
 
-export enum Priority{
+export const enum Priority{
     Low = "Low",
     Medium = "Medium",
     High = "High"
+};
+
+export type Task = {
+    id: number;
+    name: string;
+    content: string;
+    category: Category;
+    status: Status;
+    priority: Priority;
 };

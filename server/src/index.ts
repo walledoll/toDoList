@@ -1,17 +1,12 @@
-import express from 'express'
-
-const tasks = [
-    
-]
+import express from 'express';
+import taskRoutes from './routes/taskRoutes.ts';
 
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) =>{
-    res.send("Hello, world!")
-});
+app.use(express.json());
+app.use('/', taskRoutes);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+  console.log(`Server running on http://localhost:${port}`);
 });
-
