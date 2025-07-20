@@ -1,4 +1,4 @@
-import { useTasks, useUpdateTask } from '@/app/hooks/useTasks';
+import { useCreateTask, useTasks } from '@/app/hooks/useTasks';
 import { Task } from '@/entities/task/model/Task';
 import NewTask from '@/widgets/NewTask';
 import { useState } from 'react';
@@ -9,7 +9,7 @@ export default function () {
     const { id } = useParams();
     const taskId = Number(id);
      const { data: tasks, isLoading, error } = useTasks();
-    const updateTask = useUpdateTask();
+    const createTask = useCreateTask();
      if (error || !tasks) return <div>Ошибка загрузки задач</div>;
     const task = tasks.find((task) => task.id === taskId);
     if (isLoading) return <div>Загрузка задач...</div>;
@@ -29,7 +29,7 @@ export default function () {
 
     const handleSubmit = () => {
         if (currentTask) {
-            updateTask.mutate(currentTask);
+            createTask.mutate(currentTask);
             navigate('/');
         }
     };
