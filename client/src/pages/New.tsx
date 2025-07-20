@@ -29,6 +29,8 @@ export default function CreateTaskPage() {
     const handleSubmit = () => {
         if (currentTask) {
             if(!currentTask.name || !currentTask.content) {
+                //to be fixed
+                //adds blank task even after  alert message
                 alert('Пожалуйста, заполните все обязательные поля');
             }          
             createTask.mutate(currentTask, {
