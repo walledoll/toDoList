@@ -43,7 +43,7 @@ export default function NewTask({
     };
     return (
         <Card className="mx-5">
-            <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
+            <form className="grid gap-3">
                 <div className="grid md:grid-cols-2  gap-5 mx-3">
                     <div>
                         <Label>Name</Label>
