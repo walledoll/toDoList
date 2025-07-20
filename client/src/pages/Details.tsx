@@ -11,8 +11,8 @@ export default function Details() {
     const { data: tasks, isLoading, error } = useTasks();
     const deleteTask = useDeleteTask();
     const updateTask = useUpdateTask();
-    if (error) return <div>Ошибка загрузки задач</div>;
-    if (isLoading  || !tasks) return <div>Загрузка задач...</div>;
+    if (error) return <div>Can not get task of id {id}</div>;
+    if (isLoading  || !tasks) return <div>Loading...</div>;
     const task = tasks.find((task) => task.id === taskId);
   
    

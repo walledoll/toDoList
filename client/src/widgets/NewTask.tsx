@@ -125,7 +125,7 @@ export default function NewTask({
                     </div>
                 </div>
                 <div className="flex justify-between mx-3">
-                    <Button className="bg-[#777] text" onClick={onCancel}>
+                    <Button className="bg-[#777] text" onClick={() => {onCancel;   console.log('Клик по кнопке Save');}}>
                         Cancel
                     </Button>
                     <Button onClick={onSubmit}>Save</Button>

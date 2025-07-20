@@ -1,44 +1,48 @@
-import { useCreateTask, useTasks } from '@/app/hooks/useTasks';
+import { useCreateTask } from '@/app/hooks/useTasks';
 import { Task } from '@/entities/task/model/Task';
+import { Category, Priority, Status } from '@/shared/types';
 import NewTask from '@/widgets/NewTask';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function () {
+export default function CreateTaskPage() {
     const navigate = useNavigate();
-    const { id } = useParams();
-    const taskId = Number(id);
-    const { data: tasks, isLoading, error } = useTasks();
     const createTask = useCreateTask();
-     if (error) return <div>Ошибка загрузки задач</div>;
-    if (isLoading  || !tasks) return <div>Загрузка задач...</div>;
-    const task = tasks.find((task) => task.id === taskId);
-  
 
-    const [currentTask, setCurrentTask] = useState<Task | null>(task || null);
+    const [currentTask, setCurrentTask] = useState<Task>({
+        id: Date.now(),
+        name: '',
+        content: '',
+        category: Category.Bug,    
+        status: Status.Done,    
+        priority: Priority.High, 
+    });
 
     const handleCancel = () => {
         navigate('/');
     };
 
     const handleChange = (updatedField: Partial<Task>) => {
-        if (currentTask) {
-            const newTask = { ...currentTask, ...updatedField };
-            setCurrentTask(newTask);
-        }
+        setCurrentTask((prev) => ({ ...prev, ...updatedField }));
     };
 
     const handleSubmit = () => {
         if (currentTask) {
-            createTask.mutate(currentTask);
-            navigate('/');
+            createTask.mutate(currentTask, {
+                onSuccess: () => {
+                    navigate('/');
+                },
+                onError: (err) => {
+                    console.error('Ошибка при создании задачи', err);
+                },
+            });
         }
     };
 
     return (
         <div>
             <header className="flex justify-center items-center my-[2em] text-[1.1em]">
-                New Task
+                Новая задача
             </header>
             <NewTask
                 onCancel={handleCancel}
