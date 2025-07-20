@@ -28,7 +28,7 @@ export default function CreateTaskPage() {
 
     const handleSubmit = () => {
         if (currentTask) {
-            if(!currentTask.name || currentTask.content) {
+            if(!currentTask.name || !currentTask.content) {
                 alert('Пожалуйста, заполните все обязательные поля');
                 return;
             }          
