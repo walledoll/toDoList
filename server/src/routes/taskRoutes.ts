@@ -56,7 +56,7 @@ router.get('/tasks/:id', (req, res)=>{
     res.json(task);
 });
 
-router.delete('tasks/:id', (req, res) =>{
+router.delete('/tasks/:id', (req, res) =>{
     const id = Number(req.params.id);
 
     const initialLength = tasks.length;
@@ -71,14 +71,15 @@ router.delete('tasks/:id', (req, res) =>{
 
 router.patch('/tasks/:id', (req, res) =>{
     const id = parseInt(req.params.id);
+    const taskIndex = tasks.findIndex(task => task.id === id);
     const updatedFields: Partial<Task> = req.body;
-    const task = tasks.find(task => task.id === id);
-    res.json({...task, ...updatedFields});
+    tasks[taskIndex] = {...tasks[taskIndex], ...updatedFields};
+    res.json(tasks[taskIndex]);
 });
 
 router.post('/tasks', (req, res)=>{
     const newTask = req.body;
-    tasks = {...tasks, ...newTask};
+    tasks = [...tasks, newTask];
     res.status(201).json({message: 'Task created', task: newTask});
 })
 
