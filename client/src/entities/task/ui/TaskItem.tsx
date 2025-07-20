@@ -17,12 +17,12 @@ import { StickyNote } from 'lucide-react';
 import { CodeXml } from 'lucide-react';
 import { FlaskConical } from 'lucide-react';
 import { Trash } from 'lucide-react';
-import { useTaskStore } from '@/app/store/taskStore';
 import { Category, Priority, Status } from '@/shared/types';
+import { useDeleteTask } from '@/app/hooks/useTasks';
 
 export default function TaskItem(task: Task) {
     const navigate = useNavigate();
-    const deleteTask = useTaskStore((state) => state.deleteTask);
+    const deleteTask = useDeleteTask();
     const { id } = task;
 
     const handleClick = () => {
@@ -30,7 +30,7 @@ export default function TaskItem(task: Task) {
     };
 
     const handleDeleteClick = () => {
-        deleteTask(id);
+        deleteTask.mutate(id);
     };
     const renderCategory = () => {
         switch (task.category) {

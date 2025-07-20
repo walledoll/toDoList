@@ -8,11 +8,12 @@ export default function () {
     const navigate = useNavigate();
     const { id } = useParams();
     const taskId = Number(id);
-     const { data: tasks, isLoading, error } = useTasks();
+    const { data: tasks, isLoading, error } = useTasks();
     const createTask = useCreateTask();
-     if (error || !tasks) return <div>Ошибка загрузки задач</div>;
+     if (error) return <div>Ошибка загрузки задач</div>;
+    if (isLoading  || !tasks) return <div>Загрузка задач...</div>;
     const task = tasks.find((task) => task.id === taskId);
-    if (isLoading) return <div>Загрузка задач...</div>;
+  
 
     const [currentTask, setCurrentTask] = useState<Task | null>(task || null);
 

@@ -7,9 +7,8 @@ import { useTasks } from '@/app/hooks/useTasks';
 export default function Home() {
     const { data: tasks, isLoading, error } = useTasks();
     const navigate = useNavigate();
-    if( !tasks) return <div>Нет задач</div>
     if (error ) return <div>Ошибка загрузки задач</div>;
-    if (isLoading) return <div>Загрузка задач...</div>;
+    if (isLoading || !tasks) return <div>Загрузка задач...</div>;
 
     const handleAddTask = () => {
         navigate('/task/new');
