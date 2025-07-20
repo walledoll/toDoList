@@ -46,6 +46,10 @@ let tasks:Task[] = [
 
 const router: Router = express.Router();
 
+router.get('/', (req, res) =>{
+    res.send("Server is working");
+})
+
 router.get('/tasks', (req, res) => {
   res.json(tasks);
 });
