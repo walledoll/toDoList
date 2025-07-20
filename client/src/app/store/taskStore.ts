@@ -8,6 +8,7 @@ interface TaskStoreProps {
     updateTask: (updatedTask: Task) => void;
     addTask: (addedTask: Task) => void;
     deleteTask: (id: number) => void;
+    setTasks: (tasks: Task[]) => void;
 }
 
 export const useTaskStore = create<TaskStoreProps>()(
@@ -69,6 +70,7 @@ export const useTaskStore = create<TaskStoreProps>()(
                 set((state) => ({
                     tasks: state.tasks.filter((task) => task.id !== id),
                 })),
+            setTasks: (tasks:Task[]) => set({tasks}),
         }),
         {
             name: 'task-storage',

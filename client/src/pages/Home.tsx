@@ -1,12 +1,14 @@
 import TaskList from '@/widgets/TaskList';
-import { useTaskStore } from '@/app/store/taskStore';
 import { Button } from '@/shared/ui/button';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTasks } from '@/app/hooks/useTasks';
 
 export default function Home() {
-    const tasks = useTaskStore((state) => state.tasks);
+      const { data: tasks, isLoading, error } = useTasks();
     const navigate = useNavigate();
+    if (error || !tasks) return <div>Ошибка загрузки задач</div>;
+    if (isLoading) return <div>Загрузка задач...</div>;
 
     const handleAddTask = () => {
         navigate('/task/new');

@@ -1,21 +1,20 @@
-import { useTaskStore } from '@/app/store/taskStore';
+import { useTasks, useUpdateTask } from '@/app/hooks/useTasks';
 import { Task } from '@/entities/task/model/Task';
-import { Category, Priority, Status } from '@/shared/types';
 import NewTask from '@/widgets/NewTask';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function () {
     const navigate = useNavigate();
-    const addTask = useTaskStore((state) => state.addTask);
-    const [currentTask, setCurrentTask] = useState<Task | null>({
-        id: Date.now(),
-        name: '',
-        content: '',
-        category: Category.Bug,
-        status: Status.Done,
-        priority: Priority.High,
-    });
+    const { id } = useParams();
+    const taskId = Number(id);
+     const { data: tasks, isLoading, error } = useTasks();
+    const updateTask = useUpdateTask();
+     if (error || !tasks) return <div>Ошибка загрузки задач</div>;
+    const task = tasks.find((task) => task.id === taskId);
+    if (isLoading) return <div>Загрузка задач...</div>;
+
+    const [currentTask, setCurrentTask] = useState<Task | null>(task || null);
 
     const handleCancel = () => {
         navigate('/');
@@ -30,10 +29,11 @@ export default function () {
 
     const handleSubmit = () => {
         if (currentTask) {
-            addTask(currentTask);
+            updateTask.mutate(currentTask);
             navigate('/');
         }
     };
+
     return (
         <div>
             <header className="flex justify-center items-center my-[2em] text-[1.1em]">

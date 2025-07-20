@@ -1,4 +1,4 @@
-import { useTaskStore } from '@/app/store/taskStore';
+import { useDeleteTask, useTasks, useUpdateTask } from '@/app/hooks/useTasks';
 import { Task } from '@/entities/task/model/Task';
 import TaskDetails from '@/widgets/TaskDetails';
 import { useState } from 'react';
@@ -8,10 +8,13 @@ export default function Details() {
     const navigate = useNavigate();
     const { id } = useParams();
     const taskId = Number(id);
-    const tasks = useTaskStore((state) => state.tasks);
-    const updateTask = useTaskStore((state) => state.updateTask);
-    const deleteTask = useTaskStore((state) => state.deleteTask);
+     const { data: tasks, isLoading, error } = useTasks();
+    const deleteTask = useDeleteTask();
+    const updateTask = useUpdateTask();
+     if (error || !tasks) return <div>Ошибка загрузки задач</div>;
     const task = tasks.find((task) => task.id === taskId);
+    if (isLoading) return <div>Загрузка задач...</div>;
+   
 
     const [currentTask, setCurrentTask] = useState<Task | null>(task || null);
 
@@ -28,14 +31,14 @@ export default function Details() {
 
     const handleSubmit = () => {
         if (currentTask) {
-            updateTask(currentTask);
+            updateTask.mutate(currentTask);
             navigate('/');
         }
     };
 
     const handleDelete = () => {
         if (currentTask) {
-            deleteTask(taskId);
+            deleteTask.mutate(taskId);
             navigate('/');
         }
     };
