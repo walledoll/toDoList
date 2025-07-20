@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const app = express();
 const port = 3000;
-app.use(cors({ origin: 'https://todolist-2qqh.onrender.com ' })); 
+app.use(cors({ origin: 'https://todolist-2qqh.onrender.com' })); 
 app.use(express.json());
 app.use('/', taskRoutes);
 

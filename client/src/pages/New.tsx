@@ -30,7 +30,6 @@ export default function CreateTaskPage() {
         if (currentTask) {
             if(!currentTask.name || !currentTask.content) {
                 alert('Пожалуйста, заполните все обязательные поля');
-                return;
             }          
             createTask.mutate(currentTask, {
                 onSuccess: () => {
