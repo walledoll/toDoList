@@ -19,14 +19,12 @@ interface NewTaskProps {
     onChange: (updatedField: Partial<Task>) => void;
     onSubmit: () => void;
     onCancel: () => void;
-    onError?: () => void;
 }
 
 export default function NewTask({
     onChange,
     onCancel,
     onSubmit,
-    onError
 }: NewTaskProps) {
     const [task, setTask] = useState<Partial<Task>>({
         name: '',
@@ -35,16 +33,44 @@ export default function NewTask({
         status: undefined,
         priority: undefined,
     });
+
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
-        const { name: fieldName, value } = e.target;
-        setTask((prev) => {
-            const updatedTask = { ...prev, [fieldName]: value };
-            onChange(updatedTask);
-            return updatedTask;
-        });
+        const { name, value } = e.target;
+        const updatedTask = { ...task, [name]: value };
+        setTask(updatedTask);
+        onChange(updatedTask);
     };
+
+    const handleSelectChange = (field: string, value: string) => {
+        const updatedTask = { ...task, [field]: value };
+        setTask(updatedTask);
+        onChange(updatedTask);
+    };
+
+    const validateForm = () => {
+        return (
+            task.name &&
+            task.content &&
+            task.category &&
+            task.status &&
+            task.priority
+        );
+    };
+
+    const handleSubmit = () => {
+        if (validateForm()) {
+            onSubmit();
+        }
+    };
+
+    const renderError = (value: string | undefined, itemName: string) => {
+        return !value ? (
+            <div className="text-red-700">Task {itemName} is required</div>
+        ) : null;
+    };
+
     const renderSelectItem = (
         item: typeof Category | typeof Status | typeof Priority,
     ) => {
@@ -55,38 +81,29 @@ export default function NewTask({
         ));
     };
 
-    const renderError = (value: string, itemName: string) => {
-        if (!value) {
-            return <div className="text-red-700">Task {itemName} is required</div>;
-        }
-        return null;    
-    };  
-
     return (
         <Card className="mx-5">
             <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2  gap-5 mx-3">
+                <div className="grid md:grid-cols-2 gap-5 mx-3">
                     <div>
                         <Label>Name</Label>
                         <Input
                             name="name"
                             onChange={handleChange}
-                            type="text"
-                            value = {task.name || ''}
+                            value={task.name || ''}
                             required
                         />
-                        {renderError(task.name || '', 'name')}
+                        {renderError(task.name, 'name')}
                     </div>
                     <div>
-                        <Label htmlFor="content">Content</Label>
+                        <Label>Content</Label>
                         <Input
-                            onChange={handleChange}
-                            type="text"
                             name="content"
-                            value = {task.name || ''}
+                            onChange={handleChange}
+                            value={task.content || ''}
                             required
                         />
-                        {renderError(task.content || '', 'content')}
+                        {renderError(task.content, 'content')}
                     </div>
                 </div>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mx-3">
@@ -94,15 +111,12 @@ export default function NewTask({
                         <Label>Select a category</Label>
                         <Select
                             onValueChange={(value) =>
-                                onChange({ category: value as Category })
+                                handleSelectChange('category', value)
                             }
-                            value = {task.name || ''}
-                            required
                         >
-                            <SelectTrigger className="w-[15em]" >
+                            <SelectTrigger className="w-[15em]">
                                 <SelectValue />
                             </SelectTrigger>
-
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Category</SelectLabel>
@@ -110,21 +124,18 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                        {renderError(task.category || '', 'category')}
+                        {renderError(task.category, 'category')}
                     </div>
                     <div>
                         <Label>Select a status</Label>
                         <Select
                             onValueChange={(value) =>
-                                onChange({ status: value as Status })
+                                handleSelectChange('status', value)
                             }
-                            required
-                            value = {task.name || ''}
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
                             </SelectTrigger>
-
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Status</SelectLabel>
@@ -132,22 +143,18 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                        {renderError(task.status || '', 'status')}
+                        {renderError(task.status, 'status')}
                     </div>
-
                     <div>
                         <Label>Select a priority</Label>
                         <Select
                             onValueChange={(value) =>
-                                onChange({ priority: value as Priority })
+                                handleSelectChange('priority', value)
                             }
-                            required
-                            value = {task.name || ''}
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
                             </SelectTrigger>
-
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Priority</SelectLabel>
@@ -155,14 +162,16 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-                        {renderError(task.priority || '', 'priority')}
+                        {renderError(task.priority, 'priority')}
                     </div>
                 </div>
                 <div className="flex justify-between mx-3">
-                    <Button className="bg-[#777] text" onClick={() => {onCancel;   console.log('Клик по кнопке Save');}}>
+                    <Button className="bg-[#777]" onClick={onCancel}>
                         Cancel
                     </Button>
-                    <Button onClick={onSubmit} type='submit'>Save</Button>
+                    <Button onClick={handleSubmit} type="submit">
+                        Save
+                    </Button>
                 </div>
             </form>
         </Card>
