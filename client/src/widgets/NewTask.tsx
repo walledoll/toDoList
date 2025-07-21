@@ -91,7 +91,6 @@ export default function NewTask({
                             name="name"
                             onChange={handleChange}
                             value={task.name || ''}
-                            required
                         />
                         {renderError(task.name, 'name')}
                     </div>
@@ -101,7 +100,6 @@ export default function NewTask({
                             name="content"
                             onChange={handleChange}
                             value={task.content || ''}
-                            required
                         />
                         {renderError(task.content, 'content')}
                     </div>
