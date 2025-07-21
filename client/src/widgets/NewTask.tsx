@@ -131,7 +131,7 @@ export default function NewTask({
                     <Button className="bg-[#777] text" onClick={() => {onCancel;   console.log('Клик по кнопке Save');}}>
                         Cancel
                     </Button>
-                    <Button onClick={onSubmit}>Save</Button>
+                    <Button onClick={onSubmit} type='submit'>Save</Button>
                 </div>
             </form>
         </Card>
