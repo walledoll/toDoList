@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Card } from '../shared/ui/card';
 import { Input } from '../shared/ui/input';
 import {
@@ -19,18 +19,31 @@ interface NewTaskProps {
     onChange: (updatedField: Partial<Task>) => void;
     onSubmit: () => void;
     onCancel: () => void;
+    onError?: () => void;
 }
 
 export default function NewTask({
     onChange,
     onCancel,
     onSubmit,
+    onError
 }: NewTaskProps) {
+    const [task, setTask] = useState<Partial<Task>>({
+        name: '',
+        content: '',
+        category: undefined,
+        status: undefined,
+        priority: undefined,
+    });
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
-        const { name: filedName, value } = e.target;
-        onChange({ [filedName]: value });
+        const { name: fieldName, value } = e.target;
+        setTask((prev) => {
+            const updatedTask = { ...prev, [fieldName]: value };
+            onChange(updatedTask);
+            return updatedTask;
+        });
     };
     const renderSelectItem = (
         item: typeof Category | typeof Status | typeof Priority,
@@ -41,6 +54,14 @@ export default function NewTask({
             </SelectItem>
         ));
     };
+
+    const renderError = (value: string, itemName: string) => {
+        if (!value) {
+            return <div className="text-red-700">Task {itemName} is required</div>;
+        }
+        return null;    
+    };  
+
     return (
         <Card className="mx-5">
             <form className="grid gap-3" onSubmit={(e) => e.preventDefault()}>
@@ -51,8 +72,10 @@ export default function NewTask({
                             name="name"
                             onChange={handleChange}
                             type="text"
+                            value = {task.name || ''}
                             required
                         />
+                        {renderError(task.name || '', 'name')}
                     </div>
                     <div>
                         <Label htmlFor="content">Content</Label>
@@ -60,8 +83,10 @@ export default function NewTask({
                             onChange={handleChange}
                             type="text"
                             name="content"
+                            value = {task.name || ''}
                             required
                         />
+                        {renderError(task.content || '', 'content')}
                     </div>
                 </div>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mx-3">
@@ -71,6 +96,7 @@ export default function NewTask({
                             onValueChange={(value) =>
                                 onChange({ category: value as Category })
                             }
+                            value = {task.name || ''}
                             required
                         >
                             <SelectTrigger className="w-[15em]" >
@@ -84,6 +110,7 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
+                        {renderError(task.category || '', 'category')}
                     </div>
                     <div>
                         <Label>Select a status</Label>
@@ -92,6 +119,7 @@ export default function NewTask({
                                 onChange({ status: value as Status })
                             }
                             required
+                            value = {task.name || ''}
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
@@ -104,6 +132,7 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
+                        {renderError(task.status || '', 'status')}
                     </div>
 
                     <div>
@@ -113,6 +142,7 @@ export default function NewTask({
                                 onChange({ priority: value as Priority })
                             }
                             required
+                            value = {task.name || ''}
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
@@ -125,6 +155,7 @@ export default function NewTask({
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
+                        {renderError(task.priority || '', 'priority')}
                     </div>
                 </div>
                 <div className="flex justify-between mx-3">
