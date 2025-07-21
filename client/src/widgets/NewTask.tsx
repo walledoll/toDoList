@@ -71,8 +71,9 @@ export default function NewTask({
                             onValueChange={(value) =>
                                 onChange({ category: value as Category })
                             }
+                            required
                         >
-                            <SelectTrigger className="w-[15em]">
+                            <SelectTrigger className="w-[15em]" >
                                 <SelectValue />
                             </SelectTrigger>
 
@@ -90,6 +91,7 @@ export default function NewTask({
                             onValueChange={(value) =>
                                 onChange({ status: value as Status })
                             }
+                            required
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
@@ -110,6 +112,7 @@ export default function NewTask({
                             onValueChange={(value) =>
                                 onChange({ priority: value as Priority })
                             }
+                            required
                         >
                             <SelectTrigger className="w-[15em]">
                                 <SelectValue />
